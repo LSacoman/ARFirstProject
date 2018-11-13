@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     if (x != 0 && z != 0){
       transform.eulerAngles = new Vector3(
         transform.eulerAngles.x, 
-        0, 
+        Mathf.Atan2(x, z)  * Mathf.Rad2Deg, 
         transform.eulerAngles.z);
     }
     if (x != 0 || z != 0){
@@ -40,10 +40,11 @@ public class PlayerController : MonoBehaviour
 
   private void OnTriggerEnter(Collider other) {
     if(other.CompareTag("Player")){
+      
+      GameObject crackedObject = Instantiate(Resources.Load("Whisky_Bottle_Cracked", typeof(GameObject))) as GameObject;
+      crackedObject.transform.position = other.transform.position;
+      crackedObject.transform.rotation = other.transform.rotation;
       Destroy(other.gameObject);
-      //GameObject crackedObject = Instantiate(Resources.Load("Whisky_Bottle_Cracked", typeof(GameObject))) as GameObject;
-      //crackedObject.transform.position = other.transform.position;
-      //crackedObject.transform.rotation = other.transform.rotation;
     }
   }
 }
